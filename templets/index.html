@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#102b3f" />
+  <meta name="description" content="ابحث عن رحلتك القادمة واحجز مقعدك بسهولة مع Travelo." />
+  <title>Travelo | احجز رحلتك</title>
+  <link rel="stylesheet" href="../static/css/index.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#home" aria-label="Travelo - الرئيسية">
+        <span class="brand-mark" aria-hidden="true">T</span>
+        <span><strong>travelo</strong><small>طريقك يبدأ هنا</small></span>
+      </a>
+      <nav class="nav" aria-label="التنقل الرئيسي">
+        <a href="#home" class="active">الرئيسية</a>
+        <a href="#my-bookings">حجوزاتي <span id="bookingCount" class="nav-count">0</span></a>
+        <a href="#help">المساعدة</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-content">
+        <span class="eyebrow"><span class="live-dot"></span> رحلتك الجاية على بُعد خطوات</span>
+        <h1>السكة تبدأ من هنا.</h1>
+        <p>اختار وجهتك، احجز مقعدك، وخلي الطريق علينا.</p>
+      </div>
+    </section>
+
+    <div class="container main-content">
+      <section class="search-card" aria-labelledby="searchTitle">
+        <div class="section-heading">
+          <div><span class="section-kicker">خطط لرحلتك</span><h2 id="searchTitle">تدور على رحلة فين؟</h2></div>
+          <span class="secure-note">حجز سهل · تأكيد فوري</span>
+        </div>
+        <form id="searchForm">
+          <div class="search-grid">
+            <label>من
+              <select id="fromCity" required></select>
+            </label>
+            <button type="button" id="swapCities" class="swap-btn" aria-label="تبديل مدينتي الانطلاق والوصول" title="تبديل المدينتين">⇄</button>
+            <label>إلى
+              <select id="toCity" required></select>
+            </label>
+            <label>تاريخ السفر
+              <input type="date" id="tripDate" required />
+            </label>
+            <label>عدد الركاب
+              <select id="passengers" required>
+                <option value="1">راكب واحد</option><option value="2">راكبان</option>
+                <option value="3">3 ركاب</option><option value="4">4 ركاب</option>
+                <option value="5">5 ركاب</option><option value="6">6 ركاب</option>
+              </select>
+            </label>
+          </div>
+          <button type="submit" class="btn primary search-submit"><span aria-hidden="true">⌕</span> اعرض الرحلات</button>
+          <p id="formMessage" class="form-message" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section id="resultsSection" class="results hidden" aria-live="polite">
+        <div class="results-head">
+          <div><span class="section-kicker">اختار الأنسب ليك</span><h2>الرحلات المتاحة</h2><p id="resultsSummary" class="muted"></p></div>
+          <label class="sort-label">ترتيب حسب
+            <select id="sortSelect"><option value="time">موعد المغادرة</option><option value="priceAsc">السعر: الأقل أولًا</option><option value="priceDesc">السعر: الأعلى أولًا</option></select>
+          </label>
+        </div>
+        <div id="resultsList" class="cards"></div>
+      </section>
+
+      <section id="my-bookings" class="bookings">
+        <div class="section-heading"><div><span class="section-kicker">تذاكرك في مكان واحد</span><h2>حجوزاتي</h2></div></div>
+        <div id="bookingsList" class="cards"></div>
+      </section>
+
+      <section id="help" class="help">
+        <div class="help-icon" aria-hidden="true">?</div>
+        <div><h2>محتاج مساعدة؟</h2><p>اختار مدينتي الانطلاق والوصول وتاريخ السفر، وبعدها حدّد المقاعد المتاحة وأكد الحجز. حجوزاتك محفوظة على الجهاز ده.</p></div>
+      </section>
+      <p class="demo-note">ملاحظة: بيانات الرحلات والحجز في النسخة دي تجريبية ومحفوظة على جهازك فقط.</p>
+    </div>
+  </main>
+
+  <div id="seatModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="seatModalTitle">
+      <div class="modal-header"><div><span class="section-kicker">خطوة أخيرة</span><h2 id="seatModalTitle">اختار مقاعدك</h2></div><button class="close-btn" id="closeModalBtn" aria-label="إغلاق">×</button></div>
+      <div class="modal-body">
+        <div class="seat-trip"><div><span class="muted">الرحلة</span><strong id="modalRoute"></strong></div><div><span class="muted">الموعد</span><strong id="modalTime"></strong></div><div><span class="muted">السعر للمقعد</span><strong><span id="modalPrice"></span> جنيه</strong></div><div><span class="muted">المقاعد المطلوبة</span><strong id="modalNeeded"></strong></div></div>
+        <div class="seat-legend"><span><i class="seat-swatch available"></i>متاح</span><span><i class="seat-swatch selected"></i>اختيارك</span><span><i class="seat-swatch booked"></i>محجوز</span></div>
+        <div class="driver-label">مقدمة الحافلة</div>
+        <div id="seatGrid" class="seat-grid" aria-label="خريطة المقاعد"></div>
+        <p id="seatMessage" class="form-message" role="status" aria-live="polite"></p>
+      </div>
+      <div class="modal-footer"><div><span class="muted">الإجمالي</span><strong><span id="totalPrice">0</span> جنيه</strong></div><button id="confirmBookingBtn" class="btn primary" disabled>تأكيد الحجز</button></div>
+    </section>
+  </div>
+
+  <footer class="site-footer"><div class="container"><span>© <span id="year"></span> Travelo</span><span>رحلة موفقة ✦</span></div></footer>
+  <script src="../static/js/index.js" defer></script>
+</body>
+</html>
